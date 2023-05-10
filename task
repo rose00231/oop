@@ -1,0 +1,66 @@
+class MenuItem:
+    def _init_(self, name, type, price):
+        self.name = name
+        self.type = type
+        self.price = price
+
+class CoffeeShop:
+    def _init_(self, name, menu):
+        self.name = name
+        self.menu = menu
+        self.orders = []
+
+    def addOrder(self, item):
+        for menu_item in self.menu:
+            if menu_item.name == item:
+                self.orders.append(item)
+                return
+        return "This item is currently unavailable!"
+
+    def fulfillOrder(self):
+        if len(self.orders) > 0:
+            item = self.orders.pop(0)
+            return f"The {item} is ready!"
+        else:
+            return "All orders have been fulfilled!"
+
+    def listOrders(self):
+        return self.orders
+
+    def dueAmount(self):
+        total = 0
+        for order in self.orders:
+            for menu_item in self.menu:
+                if menu_item.name == order:
+                    total += menu_item.price
+                    break
+        return total
+
+    def cheapestitem(self):
+        cheapest_item = None
+        cheapest_price = float('inf')
+        
+        for menu_item in self.menu:
+            if menu_item.price < cheapest_price:
+                cheapest_price = menu_item.price
+                cheapest_item = menu_item.name
+        
+        return cheapest_item
+
+    def drinksOnly(self):
+        drinks_only_list = []
+        
+        for menu_item in self.menu:
+            if menu_item.type == 'drink':
+                drinks_only_list.append(menu_item.name)
+        
+        return drinks_only_list
+
+    def foodOnly(self):
+         food_only_list= []
+         
+         for menu_items in self.menu:
+             if menuItem.type == 'food':
+                 food_only_list.append(menuItem.name)
+                 
+         return food_only_list
